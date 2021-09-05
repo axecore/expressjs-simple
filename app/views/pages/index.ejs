@@ -12,13 +12,22 @@
 <main>
     <div class="jumbotron">
         <h1>This is great</h1>
-        <p>Welcome to templating using EJS</p>
+        <p id="msg"></p>
     </div>
 </main>
 
 <footer>
     <%- include('../layouts/footer'); %>
 </footer>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io()
+    socket.emit('welcome', 'this text from socket.io') // kirim ke server
+    socket.on('welcome', (msg) => { // diteruskan dari server ke client
+        $('#msg').text(msg)
+    })
+</script>
 
 </body>
 </html>
